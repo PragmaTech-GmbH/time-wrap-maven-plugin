@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>digital.pragmatech</groupId>
+    <artifactId>time-wrap-maven-plugin</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>maven-plugin</packaging>
+
+    <name>Maven Build Timer Plugin</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <maven.version>3.9.9</maven.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-plugin-api</artifactId>
+            <version>${maven.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugin-tools</groupId>
+            <artifactId>maven-plugin-annotations</artifactId>
+            <version>3.9.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-core</artifactId>
+            <version>${maven.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>5.5.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-plugin-plugin</artifactId>
+                <version>3.9.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <release>21</release>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.1.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jreleaser</groupId>
+                <artifactId>jreleaser-maven-plugin</artifactId>
+                <version>1.8.0</version>
+                <configuration>
+                    <jreleaser>
+                        <project>
+                            <name>time-wrap-maven-plugin</name>
+                            <description>Bend the space-time continuum of your build process to ship faster to production</description>
+                            <longDescription>TimeWrap is a Maven plugin that helps you visualize, optimize, and accelerate your build pipeline</longDescription>
+                            <website>https://github.com/pragmatech-digital/time-wrap-maven-plugin</website>
+                            <licenseUrl>https://www.apache.org/licenses/LICENSE-2.0.txt</licenseUrl>
+                            <authors>
+                                <author>PragmaTech Digital</author>
+                            </authors>
+                            <copyright>2025 PragmaTech Digital</copyright>
+                            <java>
+                                <groupId>digital.pragmatech</groupId>
+                                <artifactId>time-wrap-maven-plugin</artifactId>
+                                <version>${project.version}</version>
+                                <mainClass>digital.pragmatech.maven.TimeWrapMojo</mainClass>
+                            </java>
+                        </project>
+                        <release>
+                            <github>
+                                <owner>pragmatech-digital</owner>
+                                <name>time-wrap-maven-plugin</name>
+                                <overwrite>true</overwrite>
+                                <changelog>
+                                    <enabled>true</enabled>
+                                    <formatted>ALWAYS</formatted>
+                                    <format>- {{commitShortHash}} {{commitTitle}}</format>
+                                    <contributors>
+                                        <format>- {{contributorName}}</format>
+                                    </contributors>
+                                    <categorize>true</categorize>
+                                    <categories>
+                                        <category>
+                                            <title>🚀 Features</title>
+                                            <labels>feature,enhancement</labels>
+                                        </category>
+                                        <category>
+                                            <title>🐛 Bug Fixes</title>
+                                            <labels>bug,fix</labels>
+                                        </category>
+                                        <category>
+                                            <title>📝 Documentation</title>
+                                            <labels>documentation</labels>
+                                        </category>
+                                        <category>
+                                            <title>🔄 Build &amp; CI</title>
+                                            <labels>build,ci</labels>
+                                        </category>
+                                    </categories>
+                                </changelog>
+                                <milestone>
+                                    <close>true</close>
+                                </milestone>
+                                <sign>
+                                    <artifacts>true</artifacts>
+                                </sign>
+                            </github>
+                        </release>
+                        <signing>
+                            <enabled>true</enabled>
+                            <armored>true</armored>
+                        </signing>
+                        <distributions>
+                            <maven-central>
+                                <active>RELEASE</active>
+                                <nexus2>
+                                    <maven-central>
+                                        <stagingRepositories>target/staging-deploy</stagingRepositories>
+                                    </maven-central>
+                                </nexus2>
+                            </maven-central>
+                        </distributions>
+                    </jreleaser>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+</project>
